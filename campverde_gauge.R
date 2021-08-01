@@ -10,12 +10,13 @@ campverde.df$V9 <- as.numeric(campverde.df$V9)
 
 head(campverde.df)
 campverde.df <- as.data.frame(aggregate(V9 ~ V3, campverde.df, mean))
-colnames(campverde.df) <- c("Date", "Discharge (cfs)")
+colnames(campverde.df) <- c("Date", "Discharge (cubic meters per second)")
 mean(campverde.df$`Discharge (cfs)`)
 
+#0.028316847 cubic meter/second.
 class(campverde.df$Date)
-
-ggplot(campverde.df, aes(x = Date, y = `Discharge (cfs)`))+
+campverde.df$`Discharge (cubic meters per second)` <- campverde.df$`Discharge (cubic meters per second)` * 0.028316847
+ggplot(campverde.df, aes(x = Date, y = `Discharge (cubic meters per second)`))+
   geom_line(color = "blue") +
   scale_y_continuous(trans='log10')+
   theme_bw()
